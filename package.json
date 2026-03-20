@@ -1,0 +1,12 @@
+{
+  "name": "seattle-dinner-finder",
+  "version": "1.0.0",
+  "description": "Daily restaurant recommendations for north Seattle",
+  "scripts": {
+    "build": "node src/build.js",
+    "dev": "node src/build.js --watch"
+  },
+  "keywords": ["seattle", "restaurants", "dinner", "recommendations"],
+  "author": "James Evans",
+  "license": "MIT"
+}

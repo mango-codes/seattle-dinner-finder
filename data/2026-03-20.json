@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Revel",
+    "neighborhood": "Fremont",
+    "cuisine": "Korean Fusion",
+    "price": "$$",
+    "vibes": ["🎉 Lively", "🔥 Open Kitchen", "🍜 Shareable"],
+    "address": "401 N 36th St",
+    "phone": "(206) 547-2040",
+    "reservationUrl": "https://www.opentable.com/r/revel-seattle",
+    "availability": "available",
+    "whyFun": "A quintessential Seattle spot with a massive open kitchen. Chef Rachel Yang's creative Korean comfort food is perfect for sharing, and the energy is always buzzing."
+  },
+  {
+    "name": "The Ballard Cut",
+    "neighborhood": "Ballard",
+    "cuisine": "Steakhouse",
+    "price": "$$$",
+    "vibes": ["🥃 Whiskey Bar", "🥩 Steakhouse", "✨ Upscale"],
+    "address": "2221 NW Market St",
+    "phone": "(206) 829-8963",
+    "reservationUrl": "https://www.opentable.com/r/the-ballard-cut-seattle",
+    "availability": "available",
+    "whyFun": "Farm-to-table steakhouse with an incredible Japanese whiskey selection. The atmosphere strikes that perfect balance between special-occasion nice and comfortably casual."
+  },
+  {
+    "name": "Grappa",
+    "neighborhood": "Queen Anne",
+    "cuisine": "Italian",
+    "price": "$$",
+    "vibes": ["🍝 Handmade Pasta", "🍷 Wine Bar", "💕 Romantic"],
+    "address": "2 W Boston St",
+    "phone": "(206) 323-8881",
+    "reservationUrl": "https://www.opentable.com/r/grappa-seattle",
+    "availability": "available",
+    "whyFun": "Upper Queen Anne's hidden gem with fresh handmade pasta and an extensive grappa and wine list. The intimate atmosphere is perfect for date night."
+  },
+  {
+    "name": "RockCreek Seafood & Spirits",
+    "neighborhood": "Fremont",
+    "cuisine": "Seafood",
+    "price": "$$",
+    "vibes": ["🦐 Fresh Seafood", "🌿 Global Flavors", "🔥 Wood-Fired"],
+    "address": "4300 Fremont Ave N",
+    "phone": "(206) 557-7532",
+    "reservationUrl": "https://www.opentable.com/r/rockcreek-seafood-and-spirits-seattle",
+    "availability": "available",
+    "whyFun": "A Fremont favorite serving globally sourced seafood with bold, pronounced flavors. It's got that 'How to Cook a Wolf' energy—ingredient-focused and consistently excellent."
+  },
+  {
+    "name": "Westward",
+    "neighborhood": "Green Lake",
+    "cuisine": "Seafood",
+    "price": "$$",
+    "vibes": ["🌅 Lake Views", "🦪 Oysters", "🏖️ Beach Vibes"],
+    "address": "2501 N Northlake Way",
+    "phone": "Contact via Tock",
+    "reservationUrl": "https://www.exploretock.com/westward-seattle/",
+    "availability": "available",
+    "whyFun": "Located in a colorful converted gas station on Green Lake with a deck patio primed for sunset views. The waterfront setting is unbeatable—like dining at a Pacific Northwest beach house."
+  },
+  {
+    "name": "Joule",
+    "neighborhood": "Fremont",
+    "cuisine": "Korean Steakhouse",
+    "price": "$$",
+    "vibes": ["🥩 Korean Steakhouse", "✨ Creative", "🍷 Full Bar"],
+    "address": "3506 Stone Way N",
+    "phone": "(206) 632-5685",
+    "reservationUrl": "https://www.opentable.com/joule",
+    "availability": "limited",
+    "whyFun": "From celebrated chefs Rachel Yang & Seif Chirchi, Joule offers a modern Korean steakhouse experience with nontraditional cuts and creative preparations. Located in the stylish Fremont Collective."
+  }
+]
