@@ -225,7 +225,9 @@ function build() {
     let restaurants = [];
     
     if (fs.existsSync(dataPath)) {
-        restaurants = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+        const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+        // Handle both flat array and nested {restaurants: [...]} format
+        restaurants = data.restaurants || data;
     } else {
         // Fallback to sample data if no research data exists yet
         restaurants = getSampleData();
