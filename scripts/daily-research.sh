@@ -1,11 +1,12 @@
 #!/bin/bash
-# Daily restaurant research and commit script
+# Daily restaurant research and commit script with live availability checking
 
 set -e
 
 REPO_DIR="/root/.openclaw/workspace/seattle-dinner-finder"
 DATE=$(date +%Y-%m-%d)
 DATA_FILE="$REPO_DIR/data/$DATE.json"
+SCRAPER_DIR="$REPO_DIR/scraper"
 
 # GitHub token should be set as environment variable
 GITHUB_TOKEN="${GITHUB_TOKEN:-}"
@@ -17,24 +18,17 @@ fi
 
 echo "🔍 Researching restaurants for $DATE..."
 
-# TODO: This will be replaced with actual OpenClaw API call
-# For now, create sample data
-cat > "$DATA_FILE" << 'EOF'
-[
-  {
-    "name": "Revel",
-    "neighborhood": "Fremont",
-    "cuisine": "Korean Fusion",
-    "price": "$$",
-    "vibes": ["🎉 Lively", "🔥 Open Kitchen", "🍜 Shareable"],
-    "address": "401 N 36th St",
-    "phone": "(206) 547-2040",
-    "reservationUrl": "https://www.opentable.com/r/revel-seattle",
-    "availability": "available",
-    "whyFun": "A quintessential Seattle spot with a massive open kitchen. Chef Rachel Yang's creative Korean comfort food is perfect for sharing, and the energy is always buzzing."
-  }
-]
-EOF
+# Check if scrapling is installed
+if ! python3 -c "import scrapling" 2>/dev/null; then
+    echo "📦 Installing scrapling..."
+    pip install -q scrapling
+    scrapling install
+fi
+
+# Run the batch availability checker
+echo "🌐 Checking live availability on OpenTable, Resy, Tock..."
+cd "$SCRAPER_DIR"
+python3 batch_check.py --date "$DATE" --party-size 2 --output "$DATA_FILE"
 
 echo "✅ Research complete"
 
@@ -52,7 +46,7 @@ git add "data/$DATE.json"
 if git diff --cached --quiet; then
     echo "📋 No changes to commit"
 else
-    git commit -m "Add restaurant data for $DATE"
+    git commit -m "Add restaurant data for $DATE with live availability"
     
     # Push using the token
     git push "https://mango-codes:${GITHUB_TOKEN}@github.com/mango-codes/seattle-dinner-finder.git" main
