@@ -5,6 +5,7 @@ set -e
 
 REPO_DIR="/root/.openclaw/workspace/seattle-dinner-finder"
 DATE=$(date +%Y-%m-%d)
+RAW_DATA_FILE="$REPO_DIR/data/$DATE-raw.json"
 DATA_FILE="$REPO_DIR/data/$DATE.json"
 SCRAPER_DIR="$REPO_DIR/scraper"
 
@@ -21,14 +22,17 @@ echo "🔍 Researching restaurants for $DATE..."
 # Check if scrapling is installed
 if ! python3 -c "import scrapling" 2>/dev/null; then
     echo "📦 Installing scrapling..."
-    pip install -q scrapling
-    scrapling install
+    python3 -m pip install -q scrapling
 fi
 
 # Run the batch availability checker
 echo "🌐 Checking live availability on OpenTable, Resy, Tock..."
 cd "$SCRAPER_DIR"
-python3 batch_check.py --date "$DATE" --party-size 2 --output "$DATA_FILE"
+python3 batch_check.py --date "$DATE" --party-size 2 --output "$RAW_DATA_FILE"
+
+# Convert to site format
+echo "🔄 Converting to site format..."
+python3 convert_format.py --input "$RAW_DATA_FILE" --output "$DATA_FILE"
 
 echo "✅ Research complete"
 
@@ -41,6 +45,7 @@ git config user.email "bot@openclaw.local"
 
 # Add the data file
 git add "data/$DATE.json"
+git add "data/$DATE-raw.json"
 
 # Commit if there are changes
 if git diff --cached --quiet; then

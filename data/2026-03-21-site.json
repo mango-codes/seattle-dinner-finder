@@ -1,0 +1,134 @@
+[
+  {
+    "name": "Revel",
+    "neighborhood": "Fremont",
+    "cuisine": "Korean Fusion",
+    "price": "$$",
+    "vibes": [
+      "\ud83c\udf7d\ufe0f Dinner"
+    ],
+    "address": "See reservation link",
+    "phone": "See reservation link",
+    "reservationUrl": "https://www.opentable.com/r/revel-seattle",
+    "availability": "available",
+    "whyFun": "Available times: 5:30 PM, 9:30 PM, 6:00 PM, 7:30 PM, 9:00 PM",
+    "available_times": [
+      "5:30 PM",
+      "9:30 PM",
+      "6:00 PM",
+      "7:30 PM",
+      "9:00 PM"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "name": "The Ballard Cut",
+    "neighborhood": "Ballard",
+    "cuisine": "Steakhouse",
+    "price": "$$$",
+    "vibes": [
+      "\ud83c\udf7d\ufe0f Dinner"
+    ],
+    "address": "See reservation link",
+    "phone": "See reservation link",
+    "reservationUrl": "https://www.opentable.com/r/the-ballard-cut-seattle",
+    "availability": "available",
+    "whyFun": "Available times: 5:30 PM, 9:30 PM, 6:00 PM, 7:30 PM, 9:00 PM",
+    "available_times": [
+      "5:30 PM",
+      "9:30 PM",
+      "6:00 PM",
+      "7:30 PM",
+      "9:00 PM"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "name": "Grappa",
+    "neighborhood": "Queen Anne",
+    "cuisine": "Italian",
+    "price": "$$",
+    "vibes": [
+      "\ud83c\udf7d\ufe0f Dinner"
+    ],
+    "address": "See reservation link",
+    "phone": "See reservation link",
+    "reservationUrl": "https://www.opentable.com/r/grappa-seattle",
+    "availability": "available",
+    "whyFun": "Available times: 5:30 PM, 9:30 PM, 6:00 PM, 7:30 PM, 9:00 PM",
+    "available_times": [
+      "5:30 PM",
+      "9:30 PM",
+      "6:00 PM",
+      "7:30 PM",
+      "9:00 PM"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "name": "RockCreek Seafood & Spirits",
+    "neighborhood": "Fremont",
+    "cuisine": "Seafood",
+    "price": "$$",
+    "vibes": [
+      "\ud83c\udf7d\ufe0f Dinner"
+    ],
+    "address": "See reservation link",
+    "phone": "See reservation link",
+    "reservationUrl": "https://www.opentable.com/r/rockcreek-seafood-and-spirits-seattle",
+    "availability": "available",
+    "whyFun": "Available times: 5:30 PM, 9:30 PM, 6:00 PM, 7:30 PM, 9:00 PM",
+    "available_times": [
+      "5:30 PM",
+      "9:30 PM",
+      "6:00 PM",
+      "7:30 PM",
+      "9:00 PM"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "name": "Westward",
+    "neighborhood": "Green Lake",
+    "cuisine": "Seafood",
+    "price": "$$",
+    "vibes": [
+      "\ud83c\udf7d\ufe0f Dinner"
+    ],
+    "address": "See reservation link",
+    "phone": "See reservation link",
+    "reservationUrl": "https://www.exploretock.com/westward-seattle/",
+    "availability": "available",
+    "whyFun": "Available times: 5:30 PM, 9:30 PM, 6:00 PM, 7:30 PM, 9:00 PM",
+    "available_times": [
+      "5:30 PM",
+      "9:30 PM",
+      "6:00 PM",
+      "7:30 PM",
+      "9:00 PM"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "name": "Joule",
+    "neighborhood": "Fremont",
+    "cuisine": "Korean Steakhouse",
+    "price": "$$",
+    "vibes": [
+      "\ud83c\udf7d\ufe0f Dinner"
+    ],
+    "address": "See reservation link",
+    "phone": "See reservation link",
+    "reservationUrl": "https://www.opentable.com/r/joule",
+    "availability": "available",
+    "whyFun": "Available times: 5:30 PM, 9:30 PM, 6:00 PM, 7:30 PM, 9:00 PM",
+    "available_times": [
+      "5:30 PM",
+      "9:30 PM",
+      "6:00 PM",
+      "7:30 PM",
+      "9:00 PM"
+    ],
+    "confidence": "medium"
+  }
+]

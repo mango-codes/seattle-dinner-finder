@@ -1,49 +1,30 @@
-from scrapling.fetchers import StealthyFetcher, DynamicFetcher
+from scrapling.fetchers import Fetcher
 from scrapling.parser import Selector
 import json
 import re
-from datetime import datetime, timedelta
-from urllib.parse import urlencode, urlparse, parse_qs
-import time
+from datetime import datetime
+import os
 
 class ReservationScraper:
-    def __init__(self, headless=True):
-        self.headless = headless
+    def __init__(self):
+        self.fetcher = Fetcher()
         
-    def check_opentable(self, restaurant_slug, date, party_size=2, time_pref="19:00"):
-        """
-        Check availability on OpenTable
-        
-        Args:
-            restaurant_slug: OpenTable URL slug (e.g., 'revel-seattle')
-            date: YYYY-MM-DD format
-            party_size: Number of people
-            time_pref: Preferred time (HH:MM format)
-        """
+    def check_opentable(self, restaurant_slug, date, party_size=2):
+        """Check availability on OpenTable and return page content for LLM parsing"""
         url = f"https://www.opentable.com/r/{restaurant_slug}"
         
         try:
-            # Use StealthyFetcher to bypass bot detection
-            page = StealthyFetcher.fetch(
-                url, 
-                headless=self.headless,
-                network_idle=True,
-                wait_for='.reservation-time'  # Wait for time slots to load
-            )
+            # Fetch the page
+            page = self.fetcher.get(url, stealthy_headers=True)
             
-            # Look for time slot buttons
-            time_buttons = page.css('button[data-testid*="time"]')
+            # Get the full HTML content
+            html_content = page.text
             
-            available_times = []
-            for btn in time_buttons:
-                time_text = btn.css('::text').get()
-                if time_text:
-                    # Clean up time format
-                    time_clean = time_text.strip()
-                    available_times.append(time_clean)
+            # Extract text content (remove scripts, styles, etc.)
+            text_content = self._extract_text_content(html_content)
             
-            # Check if any times are in dinner window (6-9 PM)
-            dinner_times = self._filter_dinner_times(available_times)
+            # Look for reservation-related sections
+            reservation_section = self._find_reservation_section(text_content)
             
             return {
                 "restaurant": restaurant_slug,
@@ -51,9 +32,8 @@ class ReservationScraper:
                 "date": date,
                 "party_size": party_size,
                 "url": url,
-                "all_times": available_times[:10],  # Limit to first 10
-                "dinner_window_times": dinner_times,
-                "has_dinner_availability": len(dinner_times) > 0,
+                "page_content": reservation_section[:5000],  # Limit content length
+                "full_text": text_content[:10000],
                 "status": "success"
             }
             
@@ -69,34 +49,14 @@ class ReservationScraper:
             }
     
     def check_resy(self, venue_id, date, party_size=2):
-        """
-        Check availability on Resy
-        
-        Args:
-            venue_id: Resy venue ID
-            date: YYYY-MM-DD format
-            party_size: Number of people
-        """
-        # Resy uses a different URL structure
+        """Check availability on Resy"""
         url = f"https://resy.com/cities/seattle-wa/venues/{venue_id}"
         
         try:
-            page = DynamicFetcher.fetch(
-                url,
-                headless=self.headless,
-                network_idle=True
-            )
-            
-            # Resy loads times dynamically, look for time slot elements
-            time_slots = page.css('[data-testid="time-slot"], .ReservationTimeSlot')
-            
-            available_times = []
-            for slot in time_slots:
-                time_text = slot.css('::text').get()
-                if time_text:
-                    available_times.append(time_text.strip())
-            
-            dinner_times = self._filter_dinner_times(available_times)
+            page = self.fetcher.get(url, stealthy_headers=True)
+            html_content = page.text
+            text_content = self._extract_text_content(html_content)
+            reservation_section = self._find_reservation_section(text_content)
             
             return {
                 "restaurant": venue_id,
@@ -104,9 +64,8 @@ class ReservationScraper:
                 "date": date,
                 "party_size": party_size,
                 "url": url,
-                "all_times": available_times[:10],
-                "dinner_window_times": dinner_times,
-                "has_dinner_availability": len(dinner_times) > 0,
+                "page_content": reservation_section[:5000],
+                "full_text": text_content[:10000],
                 "status": "success"
             }
             
@@ -122,33 +81,14 @@ class ReservationScraper:
             }
     
     def check_tock(self, venue_slug, date, party_size=2):
-        """
-        Check availability on Tock
-        
-        Args:
-            venue_slug: Tock venue slug (e.g., 'westward-seattle')
-            date: YYYY-MM-DD format
-            party_size: Number of people
-        """
+        """Check availability on Tock"""
         url = f"https://www.exploretock.com/{venue_slug}/"
         
         try:
-            page = DynamicFetcher.fetch(
-                url,
-                headless=self.headless,
-                network_idle=True
-            )
-            
-            # Tock uses different selectors
-            time_buttons = page.css('button[data-testid*="time"], .time-slot')
-            
-            available_times = []
-            for btn in time_buttons:
-                time_text = btn.css('::text').get()
-                if time_text:
-                    available_times.append(time_text.strip())
-            
-            dinner_times = self._filter_dinner_times(available_times)
+            page = self.fetcher.get(url, stealthy_headers=True)
+            html_content = page.text
+            text_content = self._extract_text_content(html_content)
+            reservation_section = self._find_reservation_section(text_content)
             
             return {
                 "restaurant": venue_slug,
@@ -156,9 +96,8 @@ class ReservationScraper:
                 "date": date,
                 "party_size": party_size,
                 "url": url,
-                "all_times": available_times[:10],
-                "dinner_window_times": dinner_times,
-                "has_dinner_availability": len(dinner_times) > 0,
+                "page_content": reservation_section[:5000],
+                "full_text": text_content[:10000],
                 "status": "success"
             }
             
@@ -173,50 +112,45 @@ class ReservationScraper:
                 "status": "error"
             }
     
-    def _filter_dinner_times(self, times):
-        """Filter times to dinner window (6:00 PM - 9:30 PM)"""
-        dinner_times = []
+    def _extract_text_content(self, html):
+        """Extract readable text from HTML"""
+        # Remove script and style elements
+        import re
+        text = re.sub(r'<script[^>]*>.*?</script>', ' ', html, flags=re.DOTALL | re.IGNORECASE)
+        text = re.sub(r'<style[^>]*>.*?</style>', ' ', text, flags=re.DOTALL | re.IGNORECASE)
         
-        for time_str in times:
-            # Parse various time formats
-            parsed = self._parse_time(time_str)
-            if parsed:
-                hour = parsed.hour
-                # Dinner window: 6 PM to 9:30 PM
-                if 18 <= hour < 21 or (hour == 21 and parsed.minute <= 30):
-                    dinner_times.append(time_str)
+        # Remove HTML tags
+        text = re.sub(r'<[^>]+>', ' ', text)
         
-        return dinner_times
+        # Clean up whitespace
+        text = re.sub(r'\s+', ' ', text).strip()
+        
+        return text
     
-    def _parse_time(self, time_str):
-        """Parse time string to datetime object"""
-        formats = [
-            "%I:%M %p",
-            "%I %p",
-            "%H:%M",
+    def _find_reservation_section(self, text):
+        """Find the section of text related to reservations/times"""
+        # Look for keywords related to reservations
+        keywords = [
+            'reservation', 'book', 'table', 'time', 'available', 
+            'party size', 'guests', 'dinner', 'lunch', 'breakfast',
+            'PM', 'AM', ':00', ':30'
         ]
         
-        time_str = time_str.strip().upper()
+        lines = text.split('\n')
+        relevant_lines = []
         
-        for fmt in formats:
-            try:
-                return datetime.strptime(time_str, fmt)
-            except ValueError:
-                continue
+        for line in lines:
+            line = line.strip()
+            if len(line) > 10 and len(line) < 200:  # Reasonable length
+                if any(keyword.lower() in line.lower() for keyword in keywords):
+                    relevant_lines.append(line)
         
-        return None
+        return '\n'.join(relevant_lines[:100])  # Limit to 100 lines
 
 
 def check_restaurant_availability(restaurant_config, date, party_size=2):
-    """
-    Check availability for a single restaurant
-    
-    Args:
-        restaurant_config: Dict with 'name', 'platform', 'slug', etc.
-        date: YYYY-MM-DD
-        party_size: Number of people
-    """
-    scraper = ReservationScraper(headless=True)
+    """Check availability for a single restaurant"""
+    scraper = ReservationScraper()
     
     platform = restaurant_config.get('platform', 'opentable')
     slug = restaurant_config.get('slug')
@@ -240,6 +174,51 @@ def check_restaurant_availability(restaurant_config, date, party_size=2):
         }
 
 
+def parse_availability_with_llm(page_data, target_date, party_size=2):
+    """
+    Format page data for LLM parsing
+    Returns a prompt that can be sent to an LLM to extract availability
+    """
+    prompt = f"""You are analyzing a restaurant reservation page to find available dinner times.
+
+Restaurant: {page_data['restaurant']}
+Platform: {page_data['platform']}
+Date: {target_date}
+Party Size: {party_size}
+URL: {page_data['url']}
+
+Here is the text content from the reservation page:
+
+---
+{page_data['page_content']}
+---
+
+Your task:
+1. Look for available reservation times for {party_size} people on {target_date}
+2. Focus on DINNER times (between 5:30 PM and 9:30 PM)
+3. Extract all available times you find
+4. If no specific times are shown, note what the page says about availability
+
+Respond in this exact JSON format:
+{{
+  "available_times": ["6:00 PM", "7:30 PM", "9:00 PM"],
+  "has_dinner_availability": true,
+  "notes": "Any additional info about availability",
+  "confidence": "high|medium|low"
+}}
+
+If you cannot find specific times, return:
+{{
+  "available_times": [],
+  "has_dinner_availability": false,
+  "notes": "Explanation of what you found (e.g., 'No times shown for this date', 'Restaurant appears fully booked', etc.)",
+  "confidence": "low"
+}}
+"""
+    
+    return prompt
+
+
 if __name__ == "__main__":
     import argparse
     
@@ -248,6 +227,7 @@ if __name__ == "__main__":
     parser.add_argument('--platform', default='opentable', choices=['opentable', 'resy', 'tock'])
     parser.add_argument('--date', required=True, help='Date in YYYY-MM-DD format')
     parser.add_argument('--party-size', type=int, default=2, help='Party size')
+    parser.add_argument('--llm-prompt', action='store_true', help='Output LLM prompt instead of raw data')
     
     args = parser.parse_args()
     
@@ -257,4 +237,9 @@ if __name__ == "__main__":
     }
     
     result = check_restaurant_availability(config, args.date, args.party_size)
-    print(json.dumps(result, indent=2))
+    
+    if args.llm_prompt and result.get('status') == 'success':
+        prompt = parse_availability_with_llm(result, args.date, args.party_size)
+        print(prompt)
+    else:
+        print(json.dumps(result, indent=2))
