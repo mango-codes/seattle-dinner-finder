@@ -1,0 +1,160 @@
+{
+  "date": "2026-04-18",
+  "party_size": 2,
+  "total_restaurants": 8,
+  "restaurants": [
+    {
+      "name": "Revel",
+      "slug": "revel-seattle",
+      "platform": "opentable",
+      "neighborhood": "Fremont",
+      "cuisine": "Korean Fusion",
+      "price": "$$",
+      "vibes": [
+        "\ud83d\udd25 Open Kitchen",
+        "\ud83c\udf5c Shareable Plates",
+        "\ud83c\udf89 Lively"
+      ],
+      "whyFun": "Chef Rachel Yang's creative Korean comfort food with a massive open kitchen. Perfect for sharing and the energy is always buzzing.",
+      "date": "2026-04-18",
+      "party_size": 2,
+      "reservationUrl": "https://www.opentable.com/r/revel-seattle",
+      "availability": "check_directly",
+      "checkAvailabilityNote": "Click to check live availability"
+    },
+    {
+      "name": "The Ballard Cut",
+      "slug": "the-ballard-cut-seattle",
+      "platform": "opentable",
+      "neighborhood": "Ballard",
+      "cuisine": "Steakhouse",
+      "price": "$$$",
+      "vibes": [
+        "\ud83e\udd43 Whiskey Bar",
+        "\ud83e\udd69 Steakhouse",
+        "\u2728 Upscale Casual"
+      ],
+      "whyFun": "Farm-to-table steakhouse with an incredible Japanese whiskey selection. Upscale but approachable, great for a celebratory night.",
+      "date": "2026-04-18",
+      "party_size": 2,
+      "reservationUrl": "https://www.opentable.com/r/the-ballard-cut-seattle",
+      "availability": "check_directly",
+      "checkAvailabilityNote": "Click to check live availability"
+    },
+    {
+      "name": "Grappa",
+      "slug": "grappa-seattle",
+      "platform": "opentable",
+      "neighborhood": "Queen Anne",
+      "cuisine": "Italian",
+      "price": "$$",
+      "vibes": [
+        "\ud83c\udf5d Handmade Pasta",
+        "\ud83c\udf77 Wine Bar",
+        "\ud83d\udc95 Romantic"
+      ],
+      "whyFun": "Upper Queen Anne's hidden gem with fresh handmade pasta and an extensive grappa and wine list. Intimate and perfect for date night.",
+      "date": "2026-04-18",
+      "party_size": 2,
+      "reservationUrl": "https://www.opentable.com/r/grappa-seattle",
+      "availability": "check_directly",
+      "checkAvailabilityNote": "Click to check live availability"
+    },
+    {
+      "name": "RockCreek Seafood & Spirits",
+      "slug": "rockcreek-seafood-and-spirits-seattle",
+      "platform": "opentable",
+      "neighborhood": "Fremont",
+      "cuisine": "Seafood",
+      "price": "$$",
+      "vibes": [
+        "\ud83e\udd90 Fresh Seafood",
+        "\ud83c\udf3f Global Flavors",
+        "\ud83d\udd25 Wood-Fired"
+      ],
+      "whyFun": "James Beard semifinalist Chef Eric Donnelly's flagship. Globally sourced seafood with bold flavors in a rustic-industrial space.",
+      "date": "2026-04-18",
+      "party_size": 2,
+      "reservationUrl": "https://www.opentable.com/r/rockcreek-seafood-and-spirits-seattle",
+      "availability": "check_directly",
+      "checkAvailabilityNote": "Click to check live availability"
+    },
+    {
+      "name": "Westward",
+      "slug": "westward-seattle",
+      "platform": "tock",
+      "neighborhood": "Green Lake",
+      "cuisine": "Seafood",
+      "price": "$$",
+      "vibes": [
+        "\ud83c\udf05 Lake Views",
+        "\ud83e\uddaa Oysters",
+        "\ud83c\udfd6\ufe0f Beach Vibes"
+      ],
+      "whyFun": "Located in a colorful converted gas station on Green Lake with a deck patio for sunset views. Like dining at a Pacific Northwest beach house.",
+      "date": "2026-04-18",
+      "party_size": 2,
+      "reservationUrl": "https://www.exploretock.com/westward-seattle/",
+      "availability": "check_directly",
+      "checkAvailabilityNote": "Click to check live availability"
+    },
+    {
+      "name": "Joule",
+      "slug": "joule",
+      "platform": "opentable",
+      "neighborhood": "Fremont",
+      "cuisine": "Korean Steakhouse",
+      "price": "$$",
+      "vibes": [
+        "\ud83e\udd69 Korean Steakhouse",
+        "\u2728 Creative",
+        "\ud83c\udf77 Full Bar"
+      ],
+      "whyFun": "From celebrated chefs Rachel Yang & Seif Chirchi. Modern Korean steakhouse with nontraditional cuts in the stylish Fremont Collective.",
+      "date": "2026-04-18",
+      "party_size": 2,
+      "reservationUrl": "https://www.opentable.com/r/joule",
+      "availability": "check_directly",
+      "checkAvailabilityNote": "Click to check live availability"
+    },
+    {
+      "name": "Toulouse Petit",
+      "slug": "toulouse-petit-kitchen-and-lounge",
+      "platform": "opentable",
+      "neighborhood": "Queen Anne",
+      "cuisine": "Creole",
+      "price": "$$",
+      "vibes": [
+        "\ud83c\udfb7 New Orleans",
+        "\ud83c\udf64 Creole",
+        "\ud83d\udd6f\ufe0f Candlelit"
+      ],
+      "whyFun": "New Orleans-style with ornate French Quarter decor, candlelit ambiance, and fantastic Shrimp & Grits. Very popular\u2014book early!",
+      "date": "2026-04-18",
+      "party_size": 2,
+      "reservationUrl": "https://www.opentable.com/r/toulouse-petit-kitchen-and-lounge",
+      "availability": "check_directly",
+      "checkAvailabilityNote": "Click to check live availability"
+    },
+    {
+      "name": "How to Cook a Wolf",
+      "slug": "how-to-cook-a-wolf",
+      "platform": "opentable",
+      "neighborhood": "Queen Anne",
+      "cuisine": "Italian",
+      "price": "$$$",
+      "vibes": [
+        "\ud83c\udf5d Handmade Pasta",
+        "\ud83d\udd25 Cozy",
+        "\u2728 Ethan Stowell"
+      ],
+      "whyFun": "Ethan Stowell's Italian-inspired spot. Cozy, intimate, handmade pasta with local ingredients. Perfect for date night.",
+      "date": "2026-04-18",
+      "party_size": 2,
+      "reservationUrl": "https://www.opentable.com/r/how-to-cook-a-wolf",
+      "availability": "check_directly",
+      "checkAvailabilityNote": "Click to check live availability"
+    }
+  ],
+  "note": "Availability changes frequently. Click reservation links to check live availability."
+}
